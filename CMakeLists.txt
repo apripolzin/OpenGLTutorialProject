@@ -5,8 +5,8 @@ project(OpenGLTutorialProject LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(SOURCES main.cpp display.cpp shader.cpp)
-set(HEADERS display.h shader.h)
+set(SOURCES main.cpp display.cpp shader.cpp mesh.cpp)
+set(HEADERS display.h shader.h mesh.h)
 set(SHADERS basicShader.vs  basicShader.fs)
 
 foreach(shader ${SHADERS})
