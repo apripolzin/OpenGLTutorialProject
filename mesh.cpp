@@ -1,4 +1,5 @@
 #include "mesh.h"
+#include <vector>
 
 Mesh::Mesh(Vertex *vertices, unsigned int numVerticies)
 {
@@ -7,12 +8,30 @@ Mesh::Mesh(Vertex *vertices, unsigned int numVerticies)
     glGenVertexArrays(1, &m_vertexArrayObject);
     glBindVertexArray(m_vertexArrayObject);
 
+    std::vector<glm::vec3> positions;
+    std::vector<glm::vec2> texCoords;
+
+    positions.reserve(numVerticies);
+    texCoords.reserve(numVerticies);
+
+    for (unsigned int i = 0; i < numVerticies; ++i) {
+        positions.push_back(*vertices[i].getPos());
+        texCoords.push_back(*vertices[i].getTexCoord());
+    }
+
     glGenBuffers(NUM_BUFFERS, m_vertexArrayBuffers);
+
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[POSITION_VB]);
-    glBufferData(GL_ARRAY_BUFFER, numVerticies * sizeof(vertices[0]), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, numVerticies * sizeof(positions[0]), &positions[0], GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+    glBindBuffer(GL_ARRAY_BUFFER, m_vertexArrayBuffers[TEXCOORD_VB]);
+    glBufferData(GL_ARRAY_BUFFER, numVerticies * sizeof(texCoords[0]), &texCoords[0], GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
 
     glBindVertexArray(0);
 }
