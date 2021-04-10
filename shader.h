@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 
 #include "transform.h"
+#include "camera.h"
 
 class Shader
 {
@@ -13,7 +14,7 @@ public:
     virtual ~Shader();
 
     void bind();
-    void update(const Transform &transform);
+    void update(const Transform &transform, const Camera &camera);
 private:
     Shader(const Shader &) = delete;
     Shader& operator=(const Shader &) = delete;

@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SOURCES main.cpp display.cpp shader.cpp mesh.cpp texture.cpp)
-set(HEADERS display.h shader.h mesh.h texture.h transform.h)
+set(HEADERS display.h shader.h mesh.h texture.h transform.h camera.h)
 set(SHADERS basicShader.vs  basicShader.fs bricks.jpg)
 
 foreach(shader ${SHADERS})
