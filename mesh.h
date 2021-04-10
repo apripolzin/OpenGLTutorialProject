@@ -1,8 +1,11 @@
 #ifndef MESH_H
 #define MESH_H
 
+#include <string>
 #include <glm/glm.hpp>
 #include <GL/glew.h>
+
+#include "obj_loader.h"
 
 class Vertex
 {
@@ -24,7 +27,8 @@ private:
 class Mesh
 {
 public:
-    Mesh(Vertex *vertices, unsigned int numVerticies);
+    Mesh(const std::string &filename);
+    Mesh(Vertex *vertices, unsigned int numVerticies, unsigned int *indices, unsigned int numIndices);
     virtual ~Mesh();
 
     void draw();
@@ -33,9 +37,12 @@ private:
     Mesh(const Mesh &) = delete;
     Mesh& operator=(const Mesh &) = delete;
 
+    void initMesh(const IndexedModel &model);
+
     enum {
         POSITION_VB,
         TEXCOORD_VB,
+        INDEX_VB,
         NUM_BUFFERS
     };
     GLuint m_vertexArrayObject;
